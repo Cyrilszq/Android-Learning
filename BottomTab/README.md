@@ -1,5 +1,7 @@
 # BottomBar(一个底部导航菜单)
 第一次封装一个控件，写着玩的
+## 截图
+![](https://github.com/Cyrilszq/Android-Learning/blob/master/BottomTab/show.png)
 ## 使用方法
 - 布局文件
 ```
