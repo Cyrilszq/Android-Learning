@@ -15,6 +15,7 @@ public class BottomTabLayout extends LinearLayout {
     private OnTabSelectedListener mListener;
     //记录当前选中的位置
     private int mCurrentPosition = 0;
+
     private int unSelectColor = R.color.colorPrimary;
     private int selectColor = R.color.colorPrimaryDark;
 

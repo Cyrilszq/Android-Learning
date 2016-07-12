@@ -2,6 +2,7 @@ package com.example.cyril.bottomtab;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,15 +21,16 @@ public class MainActivity extends AppCompatActivity {
         mBottomTabLayout.setSelectColor(R.color.tabSelect);
         //不要设置文字只需要图标时可将第三个参数设置为null
         mBottomTabLayout.addItem(this, R.drawable.home, "主页")
-                .addItem(this,R.drawable.classification,"分类")
-                .addItem(this,R.drawable.shopping_cart,"购物车")
-                .addItem(this,R.drawable.me,"我的");
+                .addItem(this, R.drawable.classification, "分类")
+                .addItem(this, R.drawable.shopping_cart, "购物车")
+                .addItem(this, R.drawable.me, "我的");
         mBottomTabLayout.setOnTabSelectedListener(new BottomTabLayout.OnTabSelectedListener() {
             //选中回调
             @Override
             public void onTabSelected(int position, int prePosition) {
-
+                Toast.makeText(MainActivity.this, "Click:" + position, Toast.LENGTH_SHORT).show();
             }
+
             //重复选中回调
             @Override
             public void onTabReselected(int position) {
