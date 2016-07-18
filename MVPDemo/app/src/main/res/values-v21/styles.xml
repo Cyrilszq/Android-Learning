@@ -10,4 +10,8 @@
         <item name="android:colorPrimaryDark">#1976D2</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+    <style name="Toolbar" parent="AppTheme">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+    </style>
 </resources>

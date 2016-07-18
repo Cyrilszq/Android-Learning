@@ -7,8 +7,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.cyril.mvpdemo.articleList.ArticleMainFragment;
 import com.example.cyril.mvpdemo.utils.ActivityUtils;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.navigationView)
     NavigationView mNavigationView;
 
+    private long mExitTime = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,4 +92,20 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {//
+                // 如果两次按键时间间隔大于2000毫秒，则不退出
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();// 更新mExitTime
+            } else {
+                System.exit(0);// 否则退出程序
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
 }

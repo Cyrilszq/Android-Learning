@@ -81,7 +81,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
 
     @Override
     public void start() {
-
+        mView.showLoading();
     }
 
 

@@ -1,19 +1,20 @@
 package com.example.cyril.mvpdemo.articleList;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.example.cyril.mvpdemo.R;
+import com.example.cyril.mvpdemo.articleDetail.ArticleDetailActivity;
 import com.example.cyril.mvpdemo.data.Article;
 
 import butterknife.Bind;
@@ -27,7 +28,9 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     RecyclerView mRecyclerView;
     @Bind(R.id.refresh)
     SwipeRefreshLayout mRefreshLayout;
-
+    public static final String WEBURL = "web_url";
+    //    public static final String webWho = "com.example.mygankdaily.ui.webwho";
+//    public static final String webDesc = "com.example.mygankdaily.ui.webdesc";
     private static final String CATEGORY_URL = "url";
     private ArticleListAdapter mAdapter;
     private ArticleListContract.Presenter mPresenter;
@@ -49,10 +52,11 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         //并且在presenter的构造方法中设置view的presenter，下面view就可以调用presenter中的方法来加载数据
         new ArticleListPresenter(this, getArguments().getString(CATEGORY_URL));
         //从网络加载数据
-        mPresenter.getArticleFromNet();
-
         initSwipeRefresh();
         initRecView();
+        mPresenter.start();
+        mPresenter.getArticleFromNet();
+
 
         return root;
     }
@@ -89,12 +93,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
             }
 
         };
-        mRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                showLoading();
-            }
-        });
+
         mRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mRefreshLayout.setOnRefreshListener(listener);
     }
@@ -109,6 +108,11 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
                 //点击后相当于阅读过了 标题颜色变灰
                 // 不过持久化不想做了...一刷新颜色会变回来
                 mAdapter.setSelected(position);
+                Intent intent = new Intent(getActivity(), ArticleDetailActivity.class);
+                intent.putExtra(WEBURL, mAdapter.getDatas().get(position).url);
+//                intent.putExtra(webWho,mAdapter.getDatas().get(position).who);
+//                intent.putExtra(webDesc,mAdapter.getDatas().get(position).desc);
+                startActivity(intent);
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -126,7 +130,12 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
 
     @Override
     public void showLoading() {
-        mRefreshLayout.setRefreshing(true);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+            }
+        });
     }
 
     @Override
@@ -146,5 +155,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
             mAdapter.addMoreItem(article.results);
         }
     }
+
 
 }

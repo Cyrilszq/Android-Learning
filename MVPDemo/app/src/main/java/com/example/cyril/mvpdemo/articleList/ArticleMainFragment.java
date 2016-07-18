@@ -2,7 +2,6 @@ package com.example.cyril.mvpdemo.articleList;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -21,8 +20,7 @@ import butterknife.ButterKnife;
 public class ArticleMainFragment extends Fragment {
     @Bind(R.id.article_list_viewpager)
     ViewPager mViewPager;
-    @Bind(R.id.fab)
-    FloatingActionButton mFab;
+
     @Bind(R.id.tab_layout)
     TabLayout mTabLayout;
 
@@ -41,7 +39,7 @@ public class ArticleMainFragment extends Fragment {
 
 
     private void initView() {
-        initFab();
+
 
         mViewPager.setAdapter(new ViewPagerAdapter(getFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
@@ -49,14 +47,7 @@ public class ArticleMainFragment extends Fragment {
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 
-    private void initFab() {
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO dialog
-            }
-        });
-    }
+
 
 
 }
